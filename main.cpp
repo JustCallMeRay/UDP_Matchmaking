@@ -1,6 +1,8 @@
 #import <vector> 
 using std::vector;
 
+#import <iostream>
+
 const int MYIP = 6689;
 const int MYELO = 56678;
 
@@ -72,5 +74,7 @@ void check_elo( packet query )
   
 } 
 
-int main(){}
+int main(){
+  std::cout<<"help"<<"\n";
+}
   

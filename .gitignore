@@ -1,6 +1,13 @@
 #Personal
 ~*
 
+#replit
+.ccls-cache/
+.ccls-cache/*/main.cpp
+.ccls-cache/*/main.cpp.blob
+main.d
+Makefile
+
 # Prerequisites
 *.d
 
