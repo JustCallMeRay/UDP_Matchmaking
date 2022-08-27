@@ -1,10 +1,12 @@
 #import <vector> 
 using std::vector;
+#import <map>
+using std::map;
 
 #import <iostream>
 
-const int MYIP = 6689;
-const int MYELO = 56678;
+const int MYIP = 6689;  //for referance and scalablity
+const int MYELO = 56678; //for referance and scalablity
 
 struct packet {    //once created should be immutable
   private: 
@@ -39,7 +41,7 @@ vector<packet>::iterator sorted_pos(vector<packet> vec, int item)
   int min = 0; int max = vec.size();  
   while(max-min>1)
     {
-      (vec[key].getElo > item)
+      // (vec[key].getElo() > item)
        if(vec[key].getElo() > item)
       { 
         min = key; 
@@ -52,6 +54,10 @@ vector<packet>::iterator sorted_pos(vector<packet> vec, int item)
       }
     } // end while 
   return vec.begin() + min;
+}
+void sorted_insert(map<int,int> & M, int item)
+{
+  // if M.item
 }
 
 void check_elo( packet query )
@@ -75,6 +81,6 @@ void check_elo( packet query )
 } 
 
 int main(){
-  std::cout<<"help"<<"\n";
+  std::cout<<"success! :) "<<"\n";
 }
   
