@@ -1,36 +1,48 @@
 #import <vector> 
-using std::vector; //deprecated 
+using std::vector;
+
 #import <map>
 using std::map;
 
-// for debugging 
+// for debugging
 #import <iostream> 
+using std::cout;
 
 // IPs are 4 bytes (4 0-255 values) and an int is 4 bytes so makes sense to convert them like this, 
 // LAN connections do make this more complicated and suggest use of a struct, psuedo-coded below
 struct IP {
-  int publicIP;
+  uint publicIP;
   char LANid; 
+    
+  IP(uint Public, char LANID = 0)
+  {
+    publicIP = Public; LANid = LANID;
+  }
+  IP(){}
+
 };
 
-
-const int MY_ELO = 56678; //for referance and scalablity
 
 struct packet {    //once created should be immutable
   private: 
-    uint ip;  
+    IP ip;  
     uint elo; 
   public:
     // elo => elo; 
-    uint getIp(){return ip;}
+    IP getIp(){return ip;}
     uint getElo(){return elo;}
-    packet(uint Ip, uint Elo)
-    {
+    packet(uint publicIP, char Lanid, uint Elo){
+      ip = IP(publicIP, Lanid); elo = Elo; 
+    }
+    packet(IP Ip, uint Elo){
       ip = Ip;
       elo = Elo;      
     }
+    packet(){}
     bool const operator < (const packet p){return elo < p.elo; }
 };
+
+const int MY_ELO = 56678; //for referance and scalablity
 
 
 // Ranges of ranks (bronze, silver, gold etc) 
@@ -42,31 +54,11 @@ const uint ELO_LOWERBOUND = MY_ELO * 0.9;
 const uint ELO_UPPERBOUND = MY_ELO * 1.1;
 
 // vector<packet> database[RANK_NUM]; // one for each rank, each should be sorted
-map<int,int> database; 
+map<int,IP> database; 
 
 vector<packet> possible_matches; // the players 
 
-vector<packet>::iterator sorted_pos(vector<packet> vec, int item)
-{
-  int key = vec.size() / 2 ;
-  int min = 0; int max = vec.size();  
-  while(max-min>1)
-    {
-       if(vec[key].getElo() > item)
-      { 
-        min = key; 
-        key += (key/2);
-      } else if( vec[key].getElo() == item) {
-        return vec.begin() + key;
-      } else {
-        max = key; 
-        key -= (key/2);
-      }
-    } // end while 
-  return vec.begin() + min;
-}
-
-bool database_insert(map<int,int> & M, packet p)
+bool database_insert(map<int,IP> & M, packet p)
 {
   uint item = p.getElo();
   if (std::distance(M.find(item), M.end()) > 0) //contains is c++ 20
@@ -87,9 +79,14 @@ void check_elo( packet query )
     possible_matches.emplace_back(query.getIp(),q_elo); 
   }
   database_insert(database, query);
-} 
+}  
+
+void on_questioned(packet q, int lower_bound, int upper_bound)
+{
+  cout << "not yet implmneted \n"; 
+}
 
 int main(){
-  std::cout<<"success! :)" << "\n";
+  cout<<"successfully compiled! 👍😁" << "\n";
 }
   
