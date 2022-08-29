@@ -6,7 +6,7 @@
 .ccls-cache/**
 .breakpoints
 main
-Makefile
+
 
 # Prerequisites
 *.d
