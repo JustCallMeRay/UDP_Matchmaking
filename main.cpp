@@ -4,6 +4,8 @@ using std::vector;
 #import <map>
 using std::map;
 
+#import <algorithm>
+
 // for debugging
 #import <iostream> 
 using std::cout;
@@ -84,10 +86,10 @@ void check_elo( packet query )
 
 map<int,IP> questioned(packet q, uint lower_bound, uint upper_bound)
 {
-  map<int,IP> result;
+  map<int,IP> result = {};
   auto LBit = database.lower_bound(lower_bound);
   auto UBit = database.upper_bound(lower_bound);
-  std::copy(LBit, UBit, result);
+  std::copy(LBit, UBit, std::inserter(result, result.begin()));
   database_insert(database, q);
 
   return result;
