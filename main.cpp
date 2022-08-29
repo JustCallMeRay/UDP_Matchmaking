@@ -67,6 +67,7 @@ bool database_insert(map<int,IP> & M, packet p)
     M[item] = p.getIp(); //add item to map
     return true;
   }
+  
   return false;
 }
 
@@ -81,9 +82,15 @@ void check_elo( packet query )
   database_insert(database, query);
 }  
 
-void on_questioned(packet q, int lower_bound, int upper_bound)
+map<int,IP> questioned(packet q, uint lower_bound, uint upper_bound)
 {
-  cout << "not yet implmneted \n"; 
+  map<int,IP> result;
+  auto LBit = database.lower_bound(lower_bound);
+  auto UBit = database.upper_bound(lower_bound);
+  std::copy(LBit, UBit, result);
+  database_insert(database, q);
+
+  return result;
 }
 
 int main(){

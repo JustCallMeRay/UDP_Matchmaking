@@ -3,9 +3,9 @@
 
 #replit
 .ccls-cache/
-.ccls-cache/*/main.cpp
-.ccls-cache/*/main.cpp.blob
-main.d
+.ccls-cache/**
+.breakpoints
+main
 Makefile
 
 # Prerequisites
