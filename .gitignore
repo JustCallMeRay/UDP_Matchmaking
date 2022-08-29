@@ -1,6 +1,13 @@
 #Personal
 ~*
 
+#replit
+.ccls-cache/
+.ccls-cache/**
+.breakpoints
+main
+Makefile
+
 # Prerequisites
 *.d
 
