@@ -11,7 +11,7 @@ using std::map;
 using std::cout;
 
 // IPs are 4 bytes (4 0-255 values) and an int is 4 bytes so makes sense to convert them like this, 
-// LAN connections do make this more complicated and suggest use of a struct, psuedo-coded below
+// LAN connections do make this more complicated and suggest use of a struct so I included one for scalability.
 struct IP {
   uint publicIP;
   char LANid; 
@@ -58,12 +58,14 @@ const uint ELO_UPPERBOUND = MY_ELO * 1.1;
 // vector<packet> database[RANK_NUM]; // one for each rank, each should be sorted
 map<int,IP> database; 
 
+// to be deprecated, look ups in map instead
 vector<packet> possible_matches; // the players 
 
+//to be depricated
 bool database_insert(map<int,IP> & M, packet p)
 {
   uint item = p.getElo();
-  if (std::distance(M.find(item), M.end()) > 0) //contains is c++ 20
+  if (std::distance(M.find(item), M.end()) > 0) 
   {
     // key is not in map
     M[item] = p.getIp(); //add item to map
@@ -73,27 +75,51 @@ bool database_insert(map<int,IP> & M, packet p)
   return false;
 }
 
+//Run when packet comes in, if the value is within the bounds for a match, adds it to all possible matches, always adds it to database. 
 void check_elo( packet query )
 {
   int q_elo = query.getElo();
   if (q_elo > ELO_LOWERBOUND && q_elo < ELO_UPPERBOUND)
   {
+    //check if in last match
+    
     //Add to my possible matches
     possible_matches.emplace_back(query.getIp(),q_elo); 
   }
   database_insert(database, query);
 }  
 
+
+//Run as soon as a packet comes in, returns all the values in it's database that are a possible match for the incomming packet. 
 map<int,IP> questioned(packet q, uint lower_bound, uint upper_bound)
 {
   map<int,IP> result = {};
   auto LBit = database.lower_bound(lower_bound);
   auto UBit = database.upper_bound(lower_bound);
+  //return all the usefull values from our database. 
   std::copy(LBit, UBit, std::inserter(result, result.begin()));
   database_insert(database, q);
 
   return result;
 }
+
+bool check_matchfound()
+{
+  bool b = false;
+  //tell all of the clients we found a match and await response
+  //set a flag so incomming UDP connections know we're in a match
+  // awaiting_reponse ? continue : ( matchfound ? b= true, continue : return false)
+  //write database to file so we can remove it from the heap
+  
+  // b ? return true : continue
+  //check repsonse from match clients again
+  
+  //return b
+
+  return true; 
+}
+
+
 
 int main(){
   cout<<"successfully compiled! 👍😁" << "\n";
