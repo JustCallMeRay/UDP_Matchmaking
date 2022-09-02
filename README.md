@@ -1,4 +1,5 @@
 [![C++ CI](https://github.com/JustCallMeRay/UDP_Matchmaking/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/JustCallMeRay/UDP_Matchmaking/actions/workflows/c-cpp.yml)
+[![Run on Repl.it](https://replit.com/badge/github/JustCallMeRay/UDP_Matchmaking)](https://replit.com/new/github/JustCallMeRay/UDP_Matchmaking)
 # UDP_Matchmaking
 
 <sub>
