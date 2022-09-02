@@ -29,3 +29,5 @@ clean:
 
 clean-deps:
 	rm -f $(DEPS)
+check:
+distcheck:
