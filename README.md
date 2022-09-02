@@ -1,3 +1,4 @@
+[![C++ CI](https://github.com/JustCallMeRay/UDP_Matchmaking/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/JustCallMeRay/UDP_Matchmaking/actions/workflows/c-cpp.yml)
 # UDP_Matchmaking
 
 <sub>
